@@ -1,0 +1,11 @@
+Registro NCBI Gene (lacZ):
+https://www.ncbi.nlm.nih.gov/gene/945006
+
+Registro NCBI Nucleotide (genoma de referencia):
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3
+
+Vista GenBank:
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3?report=genbank
+
+Descarga reproducible de la región lacZ en formato GenBank (NCBI EFetch):
+https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_000913.3&seq_start=363231&seq_stop=366305&rettype=gbwithparts&strand=2&retmode=text

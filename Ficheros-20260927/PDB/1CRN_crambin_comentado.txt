@@ -1,0 +1,133 @@
+# VERSIÓN DIDÁCTICA COMENTADA DEL FORMATO PDB
+#
+# IMPORTANTE: este documento NO es un PDB válido, porque incorpora líneas
+# explicativas que comienzan por «#». Para cargar coordenadas en PyMOL,
+# ChimeraX, Biopython u otro programa se debe emplear el fichero .pdb adjunto.
+#
+# Este paquete utiliza el registro 1CRN (crambina) por ser una estructura muy
+# pequeña y clásica, adecuada para explicar el formato PDB. El fichero .pdb
+# adjunto es un FRAGMENTO DOCENTE de los cinco primeros residuos; no es la
+# descarga completa del registro 1CRN. El enlace al PDB completo se incluye en
+# Enlace.txt. Las coordenadas incluidas proceden del registro 1CRN.
+#
+# CONTENIDO BIOLÓGICO
+# Proteína: crambina (CRAMBIN).
+# Organismo: Crambe hispanica subsp. abyssinica.
+# PDB ID: 1CRN.
+# Cadena: A.
+# Longitud de la cadena completa: 46 aminoácidos.
+# Método experimental: difracción de rayos X.
+# Resolución: 1,50 Å.
+#
+# FUENTE Y DESCARGA
+# Registro RCSB PDB: https://www.rcsb.org/structure/1CRN
+# PDB completo: https://files.rcsb.org/download/1CRN.pdb
+# Documentación del formato PDB: https://www.wwpdb.org/documentation/file-format-content/
+#
+# ESTRUCTURA GENERAL DEL FORMATO
+# El formato PDB clásico es texto plano de columnas fijas. Cada línea comienza
+# con un nombre de registro (HEADER, TITLE, ATOM, etc.) que determina el
+# significado de los campos que aparecen a continuación.
+#
+# --- CABECERA Y METADATOS ---
+# HEADER: clasificación general, fecha de depósito y código PDB.
+HEADER    PLANT PROTEIN                           30-APR-81   1CRN
+# TITLE: título descriptivo de la estructura. Puede ocupar varias líneas.
+TITLE     WATER STRUCTURE OF A HYDROPHOBIC PROTEIN AT ATOMIC RESOLUTION.
+TITLE    2 PENTAGON RINGS OF WATER MOLECULES IN CRYSTALS OF CRAMBIN
+# COMPND: describe la macromolécula y la cadena a la que corresponde.
+COMPND    MOL_ID: 1;
+COMPND   2 MOLECULE: CRAMBIN;
+COMPND   3 CHAIN: A;
+# SOURCE: procedencia biológica de la molécula, incluido el organismo.
+SOURCE    MOL_ID: 1;
+SOURCE   2 ORGANISM_SCIENTIFIC: CRAMBE HISPANICA SUBSP. ABYSSINICA;
+SOURCE   3 ORGANISM_TAXID: 3721;
+# KEYWDS: palabras clave para clasificar la estructura.
+KEYWDS    PLANT SEED PROTEIN, PLANT PROTEIN
+# EXPDTA: técnica experimental utilizada para determinar la estructura.
+EXPDTA    X-RAY DIFFRACTION
+# AUTHOR: autores responsables del depósito/estructura.
+AUTHOR    W.A.HENDRICKSON,M.M.TEETER
+# REMARK: información adicional. REMARK 2 suele recoger la resolución.
+REMARK   2 RESOLUTION.    1.50 ANGSTROMS.
+#
+# --- SECUENCIA Y CRISTALOGRAFÍA ---
+# SEQRES: secuencia completa de residuos de la cadena, usando códigos de tres letras.
+SEQRES   1 A   46  THR THR CYS CYS PRO SER ILE VAL ALA ARG SER ASN PHE
+SEQRES   2 A   46  ASN VAL CYS ARG LEU PRO GLY THR PRO GLU ALA ILE CYS
+SEQRES   3 A   46  ALA THR TYR THR GLY CYS ILE ILE ILE PRO GLY ALA THR
+SEQRES   4 A   46  CYS PRO GLY ASP TYR ALA ASN
+# CRYST1: parámetros de la celda cristalina y grupo espacial.
+CRYST1   40.960   18.650   22.520  90.00  90.77  90.00 P 1 21 1      2
+#
+# --- COORDENADAS ATÓMICAS ---
+# ATOM: cada línea representa un átomo de un residuo estándar de la macromolécula.
+# Los campos más importantes son:
+#   columnas 1-6   -> tipo de registro (ATOM)
+#   7-11          -> número de serie del átomo
+#   13-16         -> nombre del átomo (N, CA, C, O, CB...)
+#   18-20         -> residuo (THR, CYS, PRO...)
+#   22            -> identificador de cadena (A)
+#   23-26         -> número de residuo
+#   31-38/39-46/47-54 -> coordenadas X, Y, Z en Å
+#   55-60         -> ocupación
+#   61-66         -> factor B o factor de temperatura
+#   77-78         -> elemento químico
+#
+# Ejemplo: el primer ATOM es el nitrógeno (N) del residuo THR 1 de la cadena A.
+ATOM      1  N   THR A   1      17.047  14.099   3.625  1.00 13.79           N
+ATOM      2  CA  THR A   1      16.967  12.784   4.338  1.00 10.80           C
+ATOM      3  C   THR A   1      15.685  12.755   5.133  1.00  9.19           C
+ATOM      4  O   THR A   1      15.268  13.825   5.594  1.00  9.85           O
+ATOM      5  CB  THR A   1      18.170  12.703   5.337  1.00 13.02           C
+ATOM      6  OG1 THR A   1      19.334  12.829   4.463  1.00 15.06           O
+ATOM      7  CG2 THR A   1      18.150  11.546   6.304  1.00 14.23           C
+ATOM      8  N   THR A   2      15.115  11.555   5.265  1.00  7.81           N
+ATOM      9  CA  THR A   2      13.856  11.469   6.066  1.00  8.31           C
+ATOM     10  C   THR A   2      14.164  10.785   7.379  1.00  5.80           C
+ATOM     11  O   THR A   2      14.993   9.862   7.443  1.00  6.94           O
+ATOM     12  CB  THR A   2      12.732  10.711   5.261  1.00 10.32           C
+ATOM     13  OG1 THR A   2      13.308   9.439   4.926  1.00 12.81           O
+ATOM     14  CG2 THR A   2      12.484  11.442   3.895  1.00 11.90           C
+ATOM     15  N   CYS A   3      13.488  11.241   8.417  1.00  5.24           N
+ATOM     16  CA  CYS A   3      13.660  10.707   9.787  1.00  5.39           C
+ATOM     17  C   CYS A   3      12.269  10.431  10.323  1.00  4.45           C
+ATOM     18  O   CYS A   3      11.393  11.308  10.185  1.00  6.54           O
+ATOM     19  CB  CYS A   3      14.368  11.748  10.691  1.00  5.99           C
+ATOM     20  SG  CYS A   3      15.885  12.426  10.016  1.00  7.01           S
+ATOM     21  N   CYS A   4      12.019   9.272  10.928  1.00  3.90           N
+ATOM     22  CA  CYS A   4      10.646   8.991  11.408  1.00  4.24           C
+ATOM     23  C   CYS A   4      10.654   8.793  12.919  1.00  3.72           C
+ATOM     24  O   CYS A   4      11.659   8.296  13.491  1.00  5.30           O
+ATOM     25  CB  CYS A   4      10.057   7.752  10.682  1.00  4.41           C
+ATOM     26  SG  CYS A   4       9.837   8.018   8.904  1.00  4.72           S
+ATOM     27  N   PRO A   5       9.561   9.108  13.563  1.00  3.96           N
+ATOM     28  CA  PRO A   5       9.448   9.034  15.012  1.00  4.25           C
+ATOM     29  C   PRO A   5       9.288   7.670  15.606  1.00  4.96           C
+ATOM     30  O   PRO A   5       9.490   7.519  16.819  1.00  7.44           O
+ATOM     31  CB  PRO A   5       8.230   9.957  15.345  1.00  5.11           C
+ATOM     32  CG  PRO A   5       7.338   9.786  14.114  1.00  5.24           C
+ATOM     33  CD  PRO A   5       8.366   9.804  12.958  1.00  5.20           C
+#
+# TER: marca el final de una cadena polimérica.
+TER      34      PRO A   5
+# END: marca el final del fichero PDB.
+END
+#
+# OTROS REGISTROS QUE PUEDEN APARECER EN UN PDB COMPLETO
+# HETATM: coordenadas de ligandos, iones, cofactores o moléculas no estándar.
+# HELIX / SHEET: elementos de estructura secundaria.
+# SSBOND: puentes disulfuro entre residuos de cisteína.
+# CONECT: conectividad explícita entre determinados átomos.
+# DBREF: referencias cruzadas con otras bases de datos, por ejemplo UniProt.
+#
+# DIFERENCIA ESENCIAL CON FASTA
+# FASTA describe principalmente una secuencia lineal. PDB describe una estructura
+# tridimensional: para cada átomo almacena su posición espacial X, Y, Z, además
+# de información experimental y de anotación estructural.
+#
+# NOTA ACTUAL
+# El formato PDB de columnas fijas es el formato histórico. El archivo PDB actual
+# utiliza PDBx/mmCIF como formato de archivo canónico; el formato PDB clásico sigue
+# siendo muy usado por programas docentes y de visualización.

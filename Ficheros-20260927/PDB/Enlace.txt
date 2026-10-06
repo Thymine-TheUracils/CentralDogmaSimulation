@@ -1,0 +1,8 @@
+Registro RCSB PDB 1CRN:
+https://www.rcsb.org/structure/1CRN
+
+Descarga directa del fichero PDB completo:
+https://files.rcsb.org/download/1CRN.pdb
+
+Documentación oficial del formato PDB (wwPDB):
+https://www.wwpdb.org/documentation/file-format-content/

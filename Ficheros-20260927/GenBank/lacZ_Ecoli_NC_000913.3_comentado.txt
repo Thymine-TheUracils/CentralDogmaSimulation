@@ -1,0 +1,192 @@
+# VERSIÓN DIDÁCTICA COMENTADA DEL FICHERO GENBANK
+#
+# IMPORTANTE: este documento NO es un fichero GenBank válido, porque incorpora
+# líneas explicativas que comienzan por «#». Para utilizar el registro con
+# Biopython u otras herramientas, se debe emplear el fichero .gb adjunto.
+#
+# CONTENIDO BIOLÓGICO
+# Gen: lacZ (NCBI Gene ID: 945006).
+# Producto: beta-galactosidasa.
+# Organismo: Escherichia coli str. K-12 substr. MG1655.
+# Tipo de secuencia: ADN genómico correspondiente a la región codificante.
+# Longitud: 3075 nucleótidos.
+# Acceso del genoma de referencia: NC_000913.3.
+# Coordenadas en el genoma: 363231..366305; el gen está en la hebra inversa.
+# En este fichero la secuencia aparece orientada 5'→3' en el sentido del gen.
+#
+# FUENTES
+# Registro del gen: https://www.ncbi.nlm.nih.gov/gene/945006
+# Registro del genoma: https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3
+# Vista GenBank del genoma: https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3?report=genbank
+# Descarga reproducible de la región en GenBank (NCBI EFetch):
+# https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_000913.3&seq_start=363231&seq_stop=366305&rettype=gbwithparts&strand=2&retmode=text
+#
+# NOTA SOBRE EL FICHERO .gb ADJUNTO
+# Es un registro GenBank válido y compacto preparado para docencia a partir de
+# la misma secuencia FASTA del ejemplo anterior y de las anotaciones oficiales
+# de NCBI para lacZ. Conserva los campos esenciales LOCUS, DEFINITION, ACCESSION,
+# VERSION, SOURCE/ORGANISM, FEATURES y ORIGIN.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CABECERA DEL REGISTRO GENBANK
+# ─────────────────────────────────────────────────────────────────────────────
+# LOCUS resume el registro: nombre, longitud (3075 bp), tipo de molécula (DNA),
+# topología, división de la base de datos (BCT, bacterias) y fecha.
+# DEFINITION ofrece una descripción legible del contenido biológico.
+# ACCESSION identifica el registro de referencia del que procede la secuencia.
+# VERSION añade la versión concreta del acceso: NC_000913.3.
+# KEYWORDS contiene términos de indexación.
+# SOURCE identifica la fuente biológica y ORGANISM añade la taxonomía.
+# COMMENT recoge información adicional sobre este extracto didáctico.
+
+LOCUS       NC_000913               3075 bp    DNA     linear   BCT 21-SEP-2026
+DEFINITION  Escherichia coli str. K-12 substr. MG1655 lacZ beta-galactosidase
+            gene, complete cds.
+ACCESSION   NC_000913
+VERSION     NC_000913.3
+KEYWORDS    RefSeq; lacZ.
+SOURCE      Escherichia coli str. K-12 substr. MG1655
+  ORGANISM  Escherichia coli str. K-12 substr. MG1655
+            Bacteria; Pseudomonadati; Pseudomonadota; Gammaproteobacteria;
+            Enterobacterales; Enterobacteriaceae; Escherichia.
+COMMENT     Teaching extract corresponding to genomic coordinates
+            complement(363231..366305) of NC_000913.3; sequence is shown in the
+            5'->3' orientation of lacZ.
+
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# TABLA FEATURES: ANOTACIONES SOBRE LA SECUENCIA
+# ─────────────────────────────────────────────────────────────────────────────
+# FEATURES es una de las principales diferencias entre FASTA y GenBank.
+# No contiene solo la secuencia: permite asociar regiones con anotaciones.
+#
+# «source 1..3075» describe el origen de toda la secuencia. Sus qualifiers
+# (líneas que empiezan por «/») detallan organismo, tipo de molécula, cepa,
+# subcepa, identificador taxonómico y la región genómica original.
+#
+# «gene 1..3075» indica que toda la región corresponde al gen lacZ.
+# /gene da el símbolo; /locus_tag es el identificador estable b0344;
+# /gene_synonym recoge ECK0341; /db_xref enlaza con bases externas.
+#
+# «CDS 1..3075» marca la secuencia codificante. Los qualifiers indican, entre
+# otros datos, el producto proteico, el identificador NP_414878.1, la tabla de
+# traducción bacteriana (11), el codón inicial y la traducción a aminoácidos.
+#
+# Las coordenadas 1..3075 son locales a este fichero. En el genoma completo,
+# lacZ se localiza en complement(363231..366305). Al presentar aquí la región
+# ya invertida y complementada, el gen queda en orientación directa 5'→3'.
+
+FEATURES             Location/Qualifiers
+     source          1..3075
+                     /organism="Escherichia coli str. K-12 substr. MG1655"
+                     /mol_type="genomic DNA"
+                     /strain="K-12"
+                     /sub_strain="MG1655"
+                     /db_xref="taxon:511145"
+                     /note="Extracted from NC_000913.3 genomic coordinates
+                     363231..366305 on the complement strand"
+     gene            1..3075
+                     /gene="lacZ"
+                     /locus_tag="b0344"
+                     /gene_synonym="ECK0341"
+                     /db_xref="GeneID:945006"
+                     /db_xref="ECOCYC:EG10527"
+     CDS             1..3075
+                     /gene="lacZ"
+                     /locus_tag="b0344"
+                     /gene_synonym="ECK0341"
+                     /product="beta-galactosidase"
+                     /protein_id="NP_414878.1"
+                     /transl_table=11
+                     /codon_start=1
+                     /db_xref="GeneID:945006"
+                     /db_xref="UniProtKB/Swiss-Prot:P00722"
+                     /db_xref="ECOCYC:EG10527"
+                     /translation="MTMITDSLAVVLQRRDWENPGVTQLNRLAAHPPFASWRNSEEART
+                     DRPSQQLRSLNGEWRFAWFPAPEAVPESWLECDLPEADTVVVPSNWQMHGYDAPIYTNV
+                     TYPITVNPPFVPTENPTGCYSLTFNVDESWLQEGQTRIIFDGVNSAFHLWCNGRWVGYG
+                     QDSRLPSEFDLSAFLRAGENRLAVMVLRWSDGSYLEDQDMWRMSGIFRDVSLLHKPTTQ
+                     ISDFHVATRFNDDFSRAVLEAEVQMCGELRDYLRVTVSLWQGETQVASGTAPFGGEIID
+                     ERGGYADRVTLRLNVENPKLWSAEIPNLYRAVVELHTADGTLIEAEACDVGFREVRIEN
+                     GLLLLNGKPLLIRGVNRHEHHPLHGQVMDEQTMVQDILLMKQNNFNAVRCSHYPNHPLW
+                     YTLCDRYGLYVVDEANIETHGMVPMNRLTDDPRWLPAMSERVTRMVQRDRNHPSVIIWS
+                     LGNESGHGANHDALYRWIKSVDPSRPVQYEGGGADTTATDIICPMYARVDEDQPFPAVP
+                     KWSIKKWLSLPGETRPLILCEYAHAMGNSLGGFAKYWQAFRQYPRLQGGFVWDWVDQSL
+                     IKYDENGNPWSAYGGDFGDTPNDRQFCMNGLVFADRTPHPALTEAKHQQQFFQFRLSGQ
+                     TIEVTSEYLFRHSDNELLHWMVALDGKPLASGEVPLDVAPQGKQLIELPELPQPESAGQ
+                     LWLTVRVVQPNATAWSEAGHISAWQQWRLAENLSVTLPAASHAIPHLTTSEMDFCIELG
+                     NKRWQFNRQSGFLSQMWIGDKKQLLTPLRDQFTRAPLDNDIGVSEATRIDPNAWVERWK
+                     AAGHYQAEAALLQCTADTLADAVLITTAHAWQHQGKTLFISRKTYRIDGSGQMAITVDV
+                     EVASDTPHPARIGLNCQLAQVAERVNWLGLGPQENYPDRLTAACFDRWDLPLSDMYTPY
+                     VFPSENGLRCGTRELNYGPHQWRGDFQFNISRYSQQQLMETSHRHLLHAEEGTWLNIDG
+                     FHMGIGGDDSWSPSVSAEFQLSAGRYHYQLVWCQK"
+
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# ORIGIN: SECUENCIA DE ADN
+# ─────────────────────────────────────────────────────────────────────────────
+# ORIGIN marca el comienzo de la secuencia. Cada línea incluye una posición
+# numérica seguida de bloques de nucleótidos en minúscula. Los espacios y los
+# números son solo formato; no forman parte de la secuencia.
+#
+# A = adenina; C = citosina; G = guanina; T = timina.
+# La secuencia tiene 3075 nucleótidos, comienza por ATG y termina por TAA.
+# El terminador «//» marca el final del registro GenBank.
+
+ORIGIN
+        1 atgaccatga ttacggattc actggccgtc gttttacaac gtcgtgactg ggaaaaccct
+       61 ggcgttaccc aacttaatcg ccttgcagca catccccctt tcgccagctg gcgtaatagc
+      121 gaagaggccc gcaccgatcg cccttcccaa cagttgcgca gcctgaatgg cgaatggcgc
+      181 tttgcctggt ttccggcacc agaagcggtg ccggaaagct ggctggagtg cgatcttcct
+      241 gaggccgata ctgtcgtcgt cccctcaaac tggcagatgc acggttacga tgcgcccatc
+      301 tacaccaacg tgacctatcc cattacggtc aatccgccgt ttgttcccac ggagaatccg
+      361 acgggttgtt actcgctcac atttaatgtt gatgaaagct ggctacagga aggccagacg
+      421 cgaattattt ttgatggcgt taactcggcg tttcatctgt ggtgcaacgg gcgctgggtc
+      481 ggttacggcc aggacagtcg tttgccgtct gaatttgacc tgagcgcatt tttacgcgcc
+      541 ggagaaaacc gcctcgcggt gatggtgctg cgctggagtg acggcagtta tctggaagat
+      601 caggatatgt ggcggatgag cggcattttc cgtgacgtct cgttgctgca taaaccgact
+      661 acacaaatca gcgatttcca tgttgccact cgctttaatg atgatttcag ccgcgctgta
+      721 ctggaggctg aagttcagat gtgcggcgag ttgcgtgact acctacgggt aacagtttct
+      781 ttatggcagg gtgaaacgca ggtcgccagc ggcaccgcgc ctttcggcgg tgaaattatc
+      841 gatgagcgtg gtggttatgc cgatcgcgtc acactacgtc tgaacgtcga aaacccgaaa
+      901 ctgtggagcg ccgaaatccc gaatctctat cgtgcggtgg ttgaactgca caccgccgac
+      961 ggcacgctga ttgaagcaga agcctgcgat gtcggtttcc gcgaggtgcg gattgaaaat
+     1021 ggtctgctgc tgctgaacgg caagccgttg ctgattcgag gcgttaaccg tcacgagcat
+     1081 catcctctgc atggtcaggt catggatgag cagacgatgg tgcaggatat cctgctgatg
+     1141 aagcagaaca actttaacgc cgtgcgctgt tcgcattatc cgaaccatcc gctgtggtac
+     1201 acgctgtgcg accgctacgg cctgtatgtg gtggatgaag ccaatattga aacccacggc
+     1261 atggtgccaa tgaatcgtct gaccgatgat ccgcgctggc taccggcgat gagcgaacgc
+     1321 gtaacgcgaa tggtgcagcg cgatcgtaat cacccgagtg tgatcatctg gtcgctgggg
+     1381 aatgaatcag gccacggcgc taatcacgac gcgctgtatc gctggatcaa atctgtcgat
+     1441 ccttcccgcc cggtgcagta tgaaggcggc ggagccgaca ccacggccac cgatattatt
+     1501 tgcccgatgt acgcgcgcgt ggatgaagac cagcccttcc cggctgtgcc gaaatggtcc
+     1561 atcaaaaaat ggctttcgct acctggagag acgcgcccgc tgatcctttg cgaatacgcc
+     1621 cacgcgatgg gtaacagtct tggcggtttc gctaaatact ggcaggcgtt tcgtcagtat
+     1681 ccccgtttac agggcggctt cgtctgggac tgggtggatc agtcgctgat taaatatgat
+     1741 gaaaacggca acccgtggtc ggcttacggc ggtgattttg gcgatacgcc gaacgatcgc
+     1801 cagttctgta tgaacggtct ggtctttgcc gaccgcacgc cgcatccagc gctgacggaa
+     1861 gcaaaacacc agcagcagtt tttccagttc cgtttatccg ggcaaaccat cgaagtgacc
+     1921 agcgaatacc tgttccgtca tagcgataac gagctcctgc actggatggt ggcgctggat
+     1981 ggtaagccgc tggcaagcgg tgaagtgcct ctggatgtcg ctccacaagg taaacagttg
+     2041 attgaactgc ctgaactacc gcagccggag agcgccgggc aactctggct cacagtacgc
+     2101 gtagtgcaac cgaacgcgac cgcatggtca gaagccgggc acatcagcgc ctggcagcag
+     2161 tggcgtctgg cggaaaacct cagtgtgacg ctccccgccg cgtcccacgc catcccgcat
+     2221 ctgaccacca gcgaaatgga tttttgcatc gagctgggta ataagcgttg gcaatttaac
+     2281 cgccagtcag gctttctttc acagatgtgg attggcgata aaaaacaact gctgacgccg
+     2341 ctgcgcgatc agttcacccg tgcaccgctg gataacgaca ttggcgtaag tgaagcgacc
+     2401 cgcattgacc ctaacgcctg ggtcgaacgc tggaaggcgg cgggccatta ccaggccgaa
+     2461 gcagcgttgt tgcagtgcac ggcagataca cttgctgatg cggtgctgat tacgaccgct
+     2521 cacgcgtggc agcatcaggg gaaaacctta tttatcagcc ggaaaaccta ccggattgat
+     2581 ggtagtggtc aaatggcgat taccgttgat gttgaagtgg cgagcgatac accgcatccg
+     2641 gcgcggattg gcctgaactg ccagctggcg caggtagcag agcgggtaaa ctggctcgga
+     2701 ttagggccgc aagaaaacta tcccgaccgc cttactgccg cctgttttga ccgctgggat
+     2761 ctgccattgt cagacatgta taccccgtac gtcttcccga gcgaaaacgg tctgcgctgc
+     2821 gggacgcgcg aattgaatta tggcccacac cagtggcgcg gcgacttcca gttcaacatc
+     2881 agccgctaca gtcaacagca actgatggaa accagccatc gccatctgct gcacgcggaa
+     2941 gaaggcacat ggctgaatat cgacggtttc catatgggga ttggtggcga cgactcctgg
+     3001 agcccgtcag tatcggcgga attccagctg agcgccggtc gctaccatta ccagttggtc
+     3061 tggtgtcaaa aataa
+//
+
+# FIN DEL REGISTRO. Si se eliminan todas las líneas que comienzan por «#»,
+# queda el mismo registro que aparece en el fichero GenBank .gb adjunto.
