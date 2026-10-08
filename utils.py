@@ -22,6 +22,15 @@ def validar_adn(secuencia):
     return secuencia
 
 
+def validar_arn(secuencia):
+    secuencia = "".join(secuencia.split()).upper()
+
+    if not secuencia or set(secuencia) - set("ACGU"):
+        raise ValueError("El ARN debe contener solamente A, C, G y U.")
+
+    return secuencia
+
+
 def complementar_adn(molde):
     bases = []
 
