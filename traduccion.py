@@ -44,7 +44,6 @@ def traducir(arn):
         resultado["avisos"].append("No hay AUG: no se inicia la traducción en este modelo.")
         return resultado
 
-    # AUG fija el marco de lectura: avanzamos tres bases en cada paso.
     for posicion in range(inicio, len(arn), 3):
         codon = arn[posicion:posicion + 3]
 
