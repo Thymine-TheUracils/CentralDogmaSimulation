@@ -1,124 +1,206 @@
 # Simulación del dogma central
 
-Proyecto académico en Python para seguir el flujo ADN -> ADN -> ARNm -> proteína.
-Se construye por etapas, con funciones pequeñas y salida explicativa en consola.
+Simulador académico en Python que muestra el flujo de la información genética:
+ADN -> ADN -> ARNm -> proteína, con explicaciones, esquemas y colores por base.
+Permite seguir cómo se copia una molécula de ADN, cómo se obtiene un ARN
+mensajero a partir de una de sus hebras y cómo se interpreta ese mensaje para
+construir una secuencia de aminoácidos.
 
-## Ejecutar la versión actual
+## Ejecución
 
-Desde la carpeta del proyecto:
+Necesitas Python 3. No hay que instalar bibliotecas adicionales.
+Abre una terminal en la carpeta del proyecto y ejecuta:
 
 ```sh
 python main.py
 ```
 
-El simulador no necesita bibliotecas externas. Utiliza una secuencia artificial
-de 60 bases que puede cambiarse en `main.py`:
+El menú permite seleccionar la secuencia de ejemplo de 60 bases o introducir
+una cadena propia. Escribe la hebra codificante de ADN en sentido 5' -> 3', con
+A, C, G y T; se aceptan minúsculas y espacios. El programa valida la entrada y
+construye automáticamente la hebra complementaria. Introduce únicamente las
+bases, sin escribir los extremos `5'` y `3'`. Si la cadena está vacía o contiene
+caracteres inválidos, el menú muestra un mensaje y permite corregirla.
 
-```text
-ATGGCTTTTGAACCGAAAGGTTACTGCAATCTGAGCGTTCATACCGACCAATGGGGATAA
+No es obligatorio que la cadena propia empiece por ATG ni termine en un codón
+de parada. La replicación y la transcripción se pueden realizar igualmente;
+la traducción indicará si encuentra un inicio y una terminación.
+
+Primero se muestra la replicación. Pulsa **Enter** para ver la transcripción y
+otra vez para ver la traducción. Las pausas entre etapas funcionan por defecto
+en una consola interactiva.
+Puedes cancelar la ejecución con **Ctrl+C**. Para apreciar los colores, utiliza
+una consola compatible; la opción `--sin-color` permite desactivarlos. Si la
+salida se redirige a un archivo, los colores y las pausas entre etapas se
+desactivan automáticamente.
+
+También puedes seleccionar la secuencia directamente:
+
+```sh
+python main.py --ejemplo
+python main.py --adn ATGCCGTAA
 ```
 
-Empieza en ATG y termina en TAA, sin señales de terminación intermedias en ese
-marco de lectura. La replicación genera cinco fragmentos de Okazaki de 12 bases,
-cada uno con un cebador de 3 bases. Estos tamaños son didácticos y no biológicos.
-La ejecución muestra la replicación, la transcripción y la traducción, hasta
-obtener una secuencia de 19 aminoácidos y una parada UAA.
-
-## Organización
-
-- `utils.py`: valida ADN y ARN y construye dos hebras de ADN complementarias alineadas.
-- `replicacion.py`: representa helicasa, primasa, ADN polimerasa, sustitución de
-  cebadores y ligasa; devuelve dos moléculas hijas.
-- `transcripcion.py`: genera ARN complementario a la hebra inferior.
-- `traduccion.py`: lee el ARNm en codones y obtiene una secuencia de aminoácidos.
-- `main.py`: coordina las etapas y explica sus resultados.
-
-El punto de entrada actual es `main.py`. El paquete de `src/` todavía contiene
-el ejemplo inicial y no ejecuta la simulación.
-
-## Cómo interpretar las hebras
-
-La hebra superior se escribe 5' -> 3' y la inferior, alineada debajo, 3' -> 5'.
-Son antiparalelas: sus extremos tienen orientaciones opuestas. La complementariedad
-del ADN es A-T y C-G. Complementar una secuencia mantiene el orden de las posiciones;
-invertirla cambia el sentido en el que se muestra.
-
-La horquilla del modelo avanza de izquierda a derecha. La hebra inferior sirve
-de molde para la líder, que se sintetiza de forma continua. La superior sirve
-de molde para la rezagada: cada fragmento de Okazaki crece en sentido contrario
-al avance de la horquilla. Ambas hebras nuevas se sintetizan siempre 5' -> 3'.
-Los fragmentos se muestran individualmente en ese sentido y se unen en el orden
-necesario para reconstruir la rezagada completa.
-
-La primasa genera un cebador de ARN y la ADN polimerasa lo extiende con ADN.
-Después se retira el cebador, se rellena su región con ADN y la ligasa sella las
-uniones. Cada molécula hija conserva una hebra original y contiene otra nueva:
-por eso la replicación se llama semiconservativa.
-
-Para la transcripción elegimos la hebra inferior de la primera hija. La ARN
-polimerasa lee el molde 3' -> 5' y produce ARNm 5' -> 3', sin necesitar cebador.
-Las correspondencias molde-ARN son A-U, T-A, C-G y G-C. El resultado coincide con
-la hebra superior codificante, cambiando T por U.
-
-La traducción utiliza el [código genético estándar del NCBI](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi#SG1).
-`traducir(arn)` busca el primer AUG y, desde esa posición, avanza de tres en tres
-bases. AUG codifica Met (metionina). Los codones UAA, UAG y UGA detienen la lectura
-y no añaden aminoácidos a la cadena. Los aminoácidos se representan con sus
-abreviaturas de tres letras, por ejemplo Ala (alanina) y Gly (glicina).
-
-La función devuelve un diccionario con `inicio` (índice desde cero, o `None` si no
-hay AUG), `codones` (incluye la parada si se encuentra), `aminoacidos` (sin STOP),
-`codon_terminacion`, `fragmento_incompleto` y `avisos`. No se leen las bases
-anteriores al inicio ni las posteriores a la parada. Si falta AUG, no se obtiene
-una cadena; si falta una parada en fase, se devuelve una cadena parcial y un
-aviso. Las últimas una o dos bases, si no completan un codón, no se traducen.
-Se aceptan minúsculas y espacios; un ARN vacío o con bases inválidas produce
-`ValueError`.
-
-## Simplificaciones del modelo
-
-Las cadenas son textos, no estructuras tridimensionales. Los tamaños de los
-fragmentos y los cebadores se reducen para facilitar la explicación; no son
-medidas biológicas. Un fragmento final corto puede quedar cubierto completamente
-por su cebador y no tener extensión de ADN antes del reemplazo.
-
-La apertura y la síntesis se representan por sus resultados, sin animar el avance
-de la horquilla. La eliminación de cebadores y el relleno se agrupan en una
-función, sin distinguir las enzimas de maduración de cada organismo. Se transcribe
-toda la región entregada, sin modelar promotores, terminadores ni procesamiento
-del ARN.
-
-La iniciación de la traducción se simplifica eligiendo el primer AUG, sin modelar
-señales de reconocimiento ni otros posibles codones de inicio. Los ARNt, el
-ribosoma y los factores de liberación se explican en consola; no se simulan
-individualmente su unión ni su movimiento. Se obtiene la secuencia primaria,
-sin modelar el plegamiento ni las modificaciones de la proteína.
-
-## Requisitos y próximos pasos
-
-| Requisito de la práctica | Estado actual |
+| Opción | Uso |
 | --- | --- |
-| Apertura del ADN, cebadores y enzimas de replicación | Representados y explicados |
-| Hebra líder y rezagada con fragmentos de Okazaki | Implementadas |
-| Transcripción mediante una hebra molde y complementariedad | Implementada |
-| Lectura de codones y aminoácidos hasta una señal de terminación | Implementada con el código genético estándar |
-| Visualización de cada etapa y de la proteína final | Disponible en consola; presentación por mejorar |
-| Entrega del simulador en GitHub | Pendiente de comprobar al finalizar |
+| `--fragmento N` | Tamaño de los fragmentos de Okazaki; por defecto, 12 bases. |
+| `--cebador N` | Tamaño del cebador; por defecto, 3 bases. Debe estar entre 1 y el tamaño del fragmento. |
+| `--paso-a-paso` | Añade pausas durante la apertura del ADN por la helicasa. |
+| `--resumen` | Muestra los resultados sin los detalles ni las pausas entre etapas. |
+| `--sin-color` | Desactiva los colores. |
+| `--help` | Muestra la ayuda y todas las opciones. |
 
-El ejemplo actual contiene 20 tripletes: 19 codifican aminoácidos y el último
-corresponde a UAA en el ARNm. La secuencia obtenida es:
+Por ejemplo:
+
+```sh
+python main.py --adn ATGCCGTAA --fragmento 4 --cebador 2
+python main.py --ejemplo --resumen
+python main.py --ejemplo --paso-a-paso
+python main.py --adn "atg ccg taa" --sin-color
+```
+
+`--ejemplo` y `--adn` permiten saltar el menú y no se pueden utilizar juntos.
+Los modos `--resumen` y `--paso-a-paso` también son excluyentes. El primero
+presenta los resultados de las tres etapas de forma compacta; el segundo
+permite observar las posiciones de la helicasa pulsando Enter.
+
+### Secuencia de ejemplo
+
+El ejemplo incluido es una secuencia artificial de 60 bases:
+
+```text
+5' ATGGCTTTTGAACCGAAAGGTTACTGCAATCTGAGCGTTCATACCGACCAATGGGGATAA 3'
+```
+
+Con los parámetros por defecto, genera cinco fragmentos de Okazaki de 12 bases,
+cada uno con un cebador de 3 bases. La secuencia contiene un ATG inicial y un
+TAA final en el mismo marco de lectura, de modo que permite recorrer todas
+las etapas y obtener una cadena de 19 aminoácidos.
+
+## 1. Replicación: ADN -> ADN
+
+La replicación copia el ADN y produce dos moléculas hijas. Las dos hebras de
+la molécula original son complementarias: A se empareja con T y C con G.
+Además, son antiparalelas, por lo que sus extremos tienen orientaciones opuestas:
+
+```text
+5' ATGC 3'
+   ||||
+3' TACG 5'
+```
+
+La **helicasa** separa las hebras y permite utilizar cada una como molde para
+construir una nueva. La zona donde el ADN se está abriendo se llama horquilla
+de replicación. En el simulador, esta horquilla avanza de izquierda a derecha.
+Los esquemas muestran la apertura de un tramo inicial de hasta 24 bases;
+las barras verticales indican las bases que siguen emparejadas.
+
+La **primasa** sintetiza un cebador de ARN complementario al molde. Este tramo
+corto proporciona el extremo 3' que necesita la **ADN polimerasa** para empezar
+a añadir ADN. La polimerasa lee el molde en sentido 3' -> 5' y alarga la hebra
+nueva en sentido 5' -> 3'. Esta regla se mantiene tanto en la líder como en
+la rezagada.
+
+### Hebra líder y hebra rezagada
+
+La **hebra líder** utiliza la hebra inferior como molde. Puede crecer de forma
+continua en el mismo sentido que avanza la horquilla, a partir de un cebador.
+
+La **hebra rezagada** utiliza la hebra superior como molde. Debido a la
+orientación opuesta de este molde, se construye en tramos llamados
+**fragmentos de Okazaki**. Cada fragmento necesita su propio cebador y se
+sintetiza en sentido contrario al avance de la horquilla.
+
+En los detalles de cada fragmento, el programa muestra el molde invertido
+para leerlo 3' -> 5' y presentar la hebra nueva 5' -> 3'. Por eso, esos dibujos
+locales tienen una orientación distinta a la del esquema general de la
+horquilla. Invertir cómo se muestra una cadena no cambia sus bases ni la
+regla de síntesis. Las columnas `Cebador (ARN)` y `ADN añadido` identifican
+las dos regiones; el espacio entre ellas es solo una separación visual.
+
+### Resultado de la replicación
+
+Los cebadores se retiran y sus posiciones se rellenan con ADN. La **ligasa**
+sella las uniones entre los fragmentos, formando una hebra continua. El último
+fragmento puede ser más corto si la longitud de la secuencia no es múltiplo
+del tamaño elegido; su cebador se limita al molde disponible.
+
+Cada molécula hija contiene una hebra original y una nueva. Este mecanismo
+se denomina **replicación semiconservativa**. En el modelo, que no introduce
+mutaciones, ambas hijas conservan la secuencia de la molécula inicial.
+
+## 2. Transcripción: ADN -> ARNm
+
+La transcripción obtiene una molécula de **ARN mensajero (ARNm)** a partir
+del ADN. El simulador selecciona la hebra inferior de la primera molécula
+hija como **hebra molde**. La superior se denomina **hebra codificante**.
+
+La **ARN polimerasa** recorre el molde en sentido 3' -> 5' y sintetiza el
+ARNm en sentido 5' -> 3'. Puede iniciar la síntesis sin un cebador. En el ARN
+se utiliza uracilo (U) en lugar de timina (T), por lo que las correspondencias
+entre el molde de ADN y el ARN son:
+
+| Base del molde de ADN | Base incorporada al ARN |
+| --- | --- |
+| A | U |
+| T | A |
+| C | G |
+| G | C |
+
+Por ejemplo:
+
+```text
+ADN codificante  5' ATGCCGTAA 3'
+ADN molde        3' TACGGCATT 5'
+ARNm             5' AUGCCGUAA 3'
+```
+
+El ARNm es complementario a la hebra molde y coincide con la codificante,
+sustituyendo T por U. El resultado de esta etapa es una cadena de ARN que
+se utilizará en la traducción. En este modelo se transcribe toda la región
+introducida, sin seleccionar promotores ni terminadores.
+
+## 3. Traducción: ARNm -> proteína
+
+La traducción interpreta el ARNm para obtener una cadena de aminoácidos.
+El **ribosoma** lee el mensaje en sentido 5' -> 3' agrupando las bases de tres
+en tres. Cada grupo es un **codón**, cuya correspondencia se consulta en el
+código genético estándar.
+
+### Inicio y elongación
+
+En el simulador, la lectura comienza en el primer **AUG**, que codifica
+metionina (`Met`). Esta posición fija el **marco de lectura**: los siguientes
+codones se leen a partir de ahí, avanzando tres bases cada vez. Las bases
+anteriores al inicio no se traducen.
+
+Los **ARN de transferencia (ARNt)** transportan los aminoácidos y reconocen
+los codones mediante sus anticodones complementarios. El ribosoma cataliza
+la formación de **enlaces peptídicos**, uniendo los aminoácidos a la cadena.
+El programa representa esta correspondencia con una tabla de codones,
+posiciones en el ARNm y abreviaturas de tres letras para los aminoácidos.
+
+### Terminación y resultado
+
+Los codones **UAA, UAG y UGA** indican una parada. Cuando aparece uno en el
+marco de lectura, actúan los **factores de liberación** y se libera la cadena.
+Estos codones no aportan aminoácidos y las bases posteriores no se traducen.
+
+En el ejemplo corto de la transcripción anterior:
+
+```text
+ARNm:       AUG   CCG   UAA
+Resultado:  Met - Pro - STOP
+```
+
+La cadena obtenida tiene dos aminoácidos; `STOP` indica la terminación y no
+forma parte de ella. La secuencia de ejemplo de 60 bases produce:
 
 ```text
 Met-Ala-Phe-Glu-Pro-Lys-Gly-Tyr-Cys-Asn-Leu-Ser-Val-His-Thr-Asp-Gln-Trp-Gly
 ```
 
-Los siguientes pasos serán repasar la lógica de traducción, mejorar la salida
-para la presentación y revisar la entrega en GitHub.
-
-## Comprobaciones
-
-Las pruebas usan `unittest`, incluido en Python:
-
-```sh
-python -m unittest discover -s tests -v
-```
+Son 19 aminoácidos, seguidos de una señal UAA. Si no existe AUG, el modelo no
+inicia la traducción. Si no encuentra una parada en el marco de lectura,
+devuelve una cadena parcial y un aviso. Las últimas una o dos bases, cuando
+no completan un codón, no se traducen y también se indican mediante un aviso.
