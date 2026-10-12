@@ -112,7 +112,7 @@ def leer_argumentos():
     modos.add_argument("--resumen", action="store_true",
                        help="muestra los resultados sin el detalle de la síntesis")
     modos.add_argument("--paso-a-paso", action="store_true",
-                       help="pausa entre etapas y posiciones de la helicasa; requiere consola interactiva")
+                       help="añade pausas en la apertura de la helicasa; requiere consola interactiva")
     opciones = parser.parse_args()
     if opciones.fragmento <= 0:
         parser.error("--fragmento debe ser un entero positivo.")
@@ -128,9 +128,9 @@ def leer_argumentos():
     return opciones
 
 
-def pausar(opciones):
-    if opciones.paso_a_paso:
-        input("\nPulsa Enter para continuar...")
+def pausar(opciones, siguiente_etapa):
+    if not opciones.resumen and sys.stdin.isatty():
+        input(f"\nPulsa Enter para ver la {siguiente_etapa}...")
 
 
 def main():
@@ -152,7 +152,6 @@ def main():
     print("\nADN original:")
     mostrar_adn(adn_original)
 
-    pausar(opciones)
     titulo("1. REPLICACIÓN | ADN -> ADN")
     if not opciones.resumen:
         explicar("La helicasa separa las hebras. La horquilla avanza de izquierda a derecha. "
@@ -190,7 +189,7 @@ def main():
         print(f"\nHija {numero}: {origen}.")
         mostrar_adn(hija)
 
-    pausar(opciones)
+    pausar(opciones, "transcripción")
     titulo("2. TRANSCRIPCIÓN | ADN -> ARNm")
     adn_molde = resultado["hijas"][0]
     arn = transcribir(adn_molde)
@@ -207,7 +206,7 @@ def main():
         explicar("Coincide con la hebra codificante cambiando T por U. Transcribimos "
                  "toda la región, sin modelar promotores, terminadores ni procesamiento del ARN.")
 
-    pausar(opciones)
+    pausar(opciones, "traducción")
     titulo("3. TRADUCCIÓN | ARNm -> proteína")
     if not opciones.resumen:
         explicar("El ribosoma comienza en el primer AUG y lee codones 5' -> 3'. "
