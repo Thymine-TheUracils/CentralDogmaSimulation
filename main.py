@@ -70,7 +70,7 @@ def mostrar_sintesis(sintesis, cebador_derecha=False):
 
 def seleccionar_adn():
     titulo("SELECCIONAR SECUENCIA DE ADN")
-    print("  1. Ejemplo didáctico (60 bases, inicio ATG y parada TAA)")
+    print("  1. Secuencia de Ejemplo (60 bases, inicio ATG y parada TAA)")
     print("  2. Introducir mi propia cadena")
 
     while True:
@@ -94,7 +94,7 @@ def seleccionar_adn():
 
 def leer_argumentos():
     parser = argparse.ArgumentParser(
-        description="Simulador didáctico: ADN -> ADN -> ARNm -> proteína.",
+        description="Simulador: ADN -> ADN -> ARNm -> proteína.",
         epilog="Ejemplo: python main.py --adn ATGCCGTAA --fragmento 4 --cebador 2",
     )
     secuencias = parser.add_mutually_exclusive_group()
@@ -145,7 +145,7 @@ def main():
     adn_original = crear_adn(secuencia)
 
     titulo("SIMULACIÓN DEL DOGMA CENTRAL")
-    explicar("Modelo didáctico de una región de ADN. Las hebras son complementarias "
+    explicar("Modelo de una región de ADN. Las hebras son complementarias "
              "(A-T y C-G) y antiparalelas. Los tamaños de fragmentos y cebadores son didácticos.")
     print(f"\nADN: {len(adn_original['superior_5_3'])} pares de bases | "
           f"Fragmento: {opciones.fragmento} bases | Cebador: {opciones.cebador} bases")

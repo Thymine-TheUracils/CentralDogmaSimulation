@@ -43,7 +43,7 @@ def mostrar_apertura(adn, paso_a_paso=False):
 
 def mostrar_direcciones():
     """Esquema de orientaciones; no representa longitudes reales."""
-    print("\nDIRECCIONES EN LA HORQUILLA (esquema, no a escala)")
+    print("\nDIRECCIONES EN LA HORQUILLA")
     print("                                      " + colorear("H ---> avance", "enzima"))
     print("  Molde superior    5' " + colorear("------------------------", "adn") + " 3'")
     print("  Rezagada nueva    3' <---" + colorear("[ARN]", "arn")
